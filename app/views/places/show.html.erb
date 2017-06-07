@@ -26,12 +26,15 @@
       <dd><%= @place.comment %></dd>
 
 
-
       <dt>Addable Tags <br>(click to add)</dt>
 
       <dd>
         <% @tags.each do |tag| %>
-        <a href="/create_tagged/<%= @place.id%>/<%= tag.id%>" class="btn btn-sm btn-success"><%= tag.name %></a>
+          <% if @tagged.exists?(tag_id: tag.id) %>
+          <% else %>
+          <a href="/create_tagged/<%= @place.id%>/<%= tag.id%>" class="btn btn-sm btn-success"><%= tag.name %></a>
+          <%end  %>
+
         <% end %>
       </dd>
     </dl>

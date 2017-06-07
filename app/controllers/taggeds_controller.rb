@@ -28,7 +28,7 @@ class TaggedsController < ApplicationController
     save_status = @tagged.save
 
     if save_status == true
-      redirect_to("/places/#{@tagged.place_id}", :notice => "Tagged successfully.")
+      redirect_to("/places/#{@tagged.place_id}")
     else
       render("taggeds/new.html.erb")
     end
@@ -57,13 +57,12 @@ class TaggedsController < ApplicationController
 
   def destroy
     @tagged = Tagged.find(params[:id])
-
     @tagged.destroy
 
     if URI(request.referer).path == "/taggeds/#{@tagged.id}"
-      redirect_to("/", :notice => "Tag removed.")
+      redirect_to("/")
     else
-      redirect_to("/places/#{@tagged.place.id}", :notice => "Tagged removed.")
+      redirect_to("/places/#{@tagged.place.id}")
     end
   end
 end
