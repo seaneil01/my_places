@@ -7,6 +7,13 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
+    @tagged = Tagged.where(:place_id => @place.id)
+    @tags = Tag.where(:user_id=> current_user.id)
+
+    @arr = Array.new
+    @tagged.each do |tagged|
+      @arr.push(tagged.tag_id)
+    end
 
     render("places/show.html.erb")
   end
@@ -44,13 +51,12 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.find(params[:id])
-    @tagged = Tagged.new
+    #@tagged = Tagged.new
     render("places/edit.html.erb")
   end
 
   def update
     @place = Place.find(params[:id])
-
     @place.address = params[:address]
     @place.name = params[:name]
     @place.comment = params[:comment]
@@ -59,11 +65,11 @@ class PlacesController < ApplicationController
 
     save_status = @place.save
     #tagging
-    @tagged = Tagged.new
-    @tags = Tag.all
-    @tagged.place_id = @place.id
-    @tagged.tag_id = params[:tag_id]
-    save_status = @tagged.save
+    #@tagged = Tagged.new
+    #@tags = Tag.all
+    #@tagged.place_id = @place.id
+    #@tagged.tag_id = params[:tag_id]
+    #save_status = @tagged.save
     #end tagging
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place updated successfully.")

@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>
+    Search by Tag
+  </h1>
+
+
+      <% @tags.each do |tag| %>
+        <%if current_user.id == tag.user_id  %>
+          <a href="/tag_search/<%= tag.id %>" class="btn btn-warning"><%= tag.name %></a>
+        <%else %>
+        <%end %>
+      <% end %>
+
+
+</div>

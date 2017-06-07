@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>
+    Search by Tag
+  </h1>
+
+<% @tags.each do |tag| %>
+  <%if current_user.id == tag.user_id  %>
+    <a href="/tag_search/<%= tag.id %>" class="btn btn-warning"><%= tag.name %></a>
+  <%else %>
+  <%end %>
+<% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Comment</th>
+        <th>Neighborhood</th>
+      </tr>
+
+      <% @tagged.each do |tag| %>
+      <tr>
+        <td><a href = "/places/<%= tag.place.id %>"><%= tag.place.name %></a></td>
+        <td><%= tag.place.address %></td>
+        <td><%= tag.place.comment %></td>
+        <td><%= tag.place.neighborhood %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
