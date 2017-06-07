@@ -1,75 +1,75 @@
 <!-- Validation failure messages -->
 <% if @place.errors.any? %>
-<% @place.errors.full_messages.each do |message| %>
-<div class="alert alert-dismissable alert-danger">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <%= message %>
-</div>
-<% end %>
-<% end %>
-
-<div class="page-header">
-  <h3>Edit <%= @place.name %></h3>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <form action="/update_place/<%= @place.id %>" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-
-
-      <!-- Label and input for name -->
-      <div class="form-group">
-        <label for="name" class="control-label">
-          Name
-        </label>
-
-        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @place.name %>">
-      </div>
-      <!-- Label and input for address -->
-      <div class="form-group">
-        <label for="address" class="control-label">
-          Address
-        </label>
-
-        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="<%= @place.address %>">
-      </div>
-
-      <!-- Label and input for neighborhood -->
-      <div class="form-group">
-        <label for="neighborhood" class="control-label">
-          Neighborhood
-        </label>
-
-        <input type="text" id="neighborhood" name="neighborhood" placeholder="Neighborhood" class="form-control" value="<%= @place.neighborhood %>">
-      </div>
-
-      <!-- Label and input for comment -->
-      <div class="form-group">
-        <label for="comment" class="control-label">
-          Comment
-        </label>
-
-        <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control" value="<%= @place.comment %>">
-      </div>
-
-      <!-- Label and input for tagged -->
-      <dt>Tags</dt>
-      <% @place.taggeds.each do |place| %>
-      <dd><%= place.tag.name %></dd>
-      <% end %>
-
-
-      <!-- Label and input for user_id -->
-      <input name="user_id" type="hidden" value="<%= current_user.id%>">
-
-      <button class="btn btn-warning">
-        Update Place
-      </button>
-      or
-      <a href="/places/<%= @place.id %>">Cancel</a>
-    </form>
+  <% @place.errors.full_messages.each do |message| %>
+  <div class="alert alert-dismissable alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <%= message %>
   </div>
-</div>
+  <% end %>
+  <% end %>
+
+  <div class="page-header">
+    <h3>Edit <%= @place.name %></h3>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <form action="/update_place/<%= @place.id %>" method="post">
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+
+        <!-- Label and input for name -->
+        <div class="form-group">
+          <label for="name" class="control-label">
+            Name
+          </label>
+
+          <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @place.name %>">
+        </div>
+        <!-- Label and input for address -->
+        <div class="form-group">
+          <label for="address" class="control-label">
+            Address
+          </label>
+
+          <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="<%= @place.address %>">
+        </div>
+
+        <!-- Label and input for neighborhood -->
+        <div class="form-group">
+          <label for="neighborhood" class="control-label">
+            Neighborhood
+          </label>
+
+          <input type="text" id="neighborhood" name="neighborhood" placeholder="Neighborhood" class="form-control" value="<%= @place.neighborhood %>">
+        </div>
+
+        <!-- Label and input for comment -->
+        <div class="form-group">
+          <label for="comment" class="control-label">
+            Comment
+          </label>
+
+          <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control" value="<%= @place.comment %>">
+        </div>
+
+        <!-- Label and input for tagged -->
+        <dt>Tags</dt>
+        <% @place.taggeds.each do |place| %>
+        <dd><%= place.tag.name %></dd>
+        <% end %>
+        <%= select_tag(:tag_id, options_from_collection_for_select(Tag.where(:user_id=> current_user.id), :id, :name, @tagged.tag_id), :class => "form-control") %>
+
+        <!-- Label and input for user_id -->
+        <input name="user_id" type="hidden" value="<%= current_user.id%>">
+
+        <button class="btn btn-warning">
+          Update Place
+        </button>
+        or
+        <a href="/places/<%= @place.id %>">Cancel</a>
+      </form>
+    </div>
+  </div>

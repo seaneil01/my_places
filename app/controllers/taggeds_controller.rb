@@ -63,7 +63,7 @@ class TaggedsController < ApplicationController
     if URI(request.referer).path == "/taggeds/#{@tagged.id}"
       redirect_to("/", :notice => "Tagged deleted.")
     else
-      redirect_to(:back, :notice => "Tagged deleted.")
+      redirect_to("/taggeds", :notice => "Tagged deleted.")
     end
   end
 end
