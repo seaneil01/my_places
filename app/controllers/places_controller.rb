@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
-
+    @tagged = Tagged.all
     render("places/show.html.erb")
   end
 
