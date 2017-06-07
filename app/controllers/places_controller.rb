@@ -20,6 +20,7 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new
+    @tagged = Tagged.new
     @place.name = params[:name]
     @place.comment = params[:comment]
     url = "https://maps.googleapis.com/maps/api/geocode/json?address=chicago"+@place.name.gsub(" ", "%")
@@ -30,14 +31,10 @@ class PlacesController < ApplicationController
 
 #tagging
     @tags = Tag.all
-    @tagged = Tagged.new
-
-    @tagged.place_id = params[:place_id]
-    @tagged.tag_id = params[:tag_id]
-
-    save_status = @tagged.save
-
     save_status = @place.save
+    @tagged.place_id = @place.id
+    @tagged.tag_id = params[:tag_id]
+    save_status = @tagged.save
 #end tagging
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place created successfully.")
