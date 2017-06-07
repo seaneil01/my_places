@@ -6,7 +6,7 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
 
-      <dt>Tags <br>(click to remove)</dt>
+      <dt>Current Tags<br>(click to remove)</dt>
       <dd>
         <% @place.taggeds.each do |place| %>
         <a href="/delete_tagged/<%= place.id %>" class="btn btn-sm btn-success"><%= place.tag.name %></a>
@@ -26,19 +26,42 @@
       <dd><%= @place.comment %></dd>
 
 
-      <dt>Addable Tags <br>(click to add)</dt>
+      <dt>Addable Tags<br>(click to tag)</dt>
 
       <dd>
         <% @tags.each do |tag| %>
-          <% if @tagged.exists?(tag_id: tag.id) %>
-          <% else %>
-          <a href="/create_tagged/<%= @place.id%>/<%= tag.id%>" class="btn btn-sm btn-success"><%= tag.name %></a>
-          <%end  %>
+        <% if @tagged.exists?(tag_id: tag.id) %>
+        <% else %>
+        <a href="/create_tagged/<%= @place.id%>/<%= tag.id%>" class="btn btn-sm btn-success"><%= tag.name %></a>
+        <%end  %>
 
         <% end %>
       </dd>
-    </dl>
 
+
+      <dt>Create Tag</dt>
+      <dd>
+      <form action="/create_tag_in_place" method="post">
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+        <!-- Label and input for name -->
+        <div class="form-group">
+
+
+          <input type="text" id="name" name="name" placeholder="Name" class="form-control">
+        </div>
+
+        <!-- Hidden label and input for user_id and place-->
+        <input name="user_id" type="hidden" value="<%= current_user.id%>">
+        <input name="place_id" type="hidden" value="<%= @place.id%>">
+
+        <button class="btn btn-success">
+          Create Tag
+        </button>
+      </form>
+</dd>
+</dl>
     <div class="btn-group btn-group-justified">
       <a href="/places" class="btn btn-primary">
         Back
