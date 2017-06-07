@@ -8,6 +8,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @tagged = Tagged.all
+    @tags = Tag.where(:user_id=> current_user.id)
     render("places/show.html.erb")
   end
 

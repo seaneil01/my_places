@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # CREATE
   get "/taggeds/new", :controller => "taggeds", :action => "new"
-  post "/create_tagged", :controller => "taggeds", :action => "create"
+  get "/create_tagged/:place_id/:tag_id", :controller => "taggeds", :action => "create"
 
   # READ
   get "/taggeds", :controller => "taggeds", :action => "index"

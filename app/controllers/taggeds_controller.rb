@@ -18,7 +18,7 @@ class TaggedsController < ApplicationController
   end
 
   def create
-    @tags = Tag.all
+    @tags = Tag.where(:user_id=> current_user.id)
     @places = Place.all
     @tagged = Tagged.new
 
@@ -28,7 +28,7 @@ class TaggedsController < ApplicationController
     save_status = @tagged.save
 
     if save_status == true
-      redirect_to("/taggeds", :notice => "Tagged created successfully.")
+      redirect_to("/places/#{@tagged.place_id}", :notice => "Tagged successfully.")
     else
       render("taggeds/new.html.erb")
     end
@@ -49,7 +49,7 @@ class TaggedsController < ApplicationController
     save_status = @tagged.save
 
     if save_status == true
-      redirect_to("/taggeds/#{@tagged.id}", :notice => "Tagged updated successfully.")
+      redirect_to("/taggeds/#{@tagged.id}", :notice => "Tag updated successfully.")
     else
       render("taggeds/edit.html.erb")
     end
@@ -61,9 +61,9 @@ class TaggedsController < ApplicationController
     @tagged.destroy
 
     if URI(request.referer).path == "/taggeds/#{@tagged.id}"
-      redirect_to("/", :notice => "Tagged deleted.")
+      redirect_to("/", :notice => "Tag removed.")
     else
-      redirect_to("/places/#{@tagged.place.id}", :notice => "Tagged deleted.")
+      redirect_to("/places/#{@tagged.place.id}", :notice => "Tagged removed.")
     end
   end
 end
