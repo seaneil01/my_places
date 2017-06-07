@@ -39,14 +39,14 @@
         </div>
 
         <!-- Label and input for tagged -->
-        <div class="form-group">
+          <!--         <div class="form-group">
           <label for="tag_id" class="control-label">
             Tags
           </label>
 
 
 
-          <%= select_tag(:tag_id,  options_from_collection_for_select(Tag.where(user_id: current_user.id), :id, :name, @tagged.tag_id), :class => "form-control")%>
+<%= select_tag(:tag_id,  options_from_collection_for_select(Tag.where(user_id: current_user.id), :id, :name, @tagged.tag_id), :class => "form-control")%> -->
 
           <!-- Label and input for user_id -->
           <input name="user_id" type="hidden" value="<%= current_user.id%>">

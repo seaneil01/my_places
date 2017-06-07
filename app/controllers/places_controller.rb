@@ -36,11 +36,11 @@ class PlacesController < ApplicationController
     @place.user_id = params[:user_id]
     save_status = @place.save
     #tagging
-    @tagged = Tagged.new
-    @tags = Tag.all
-    @tagged.place_id = @place.id
-    @tagged.tag_id = params[:tag_id]
-    save_status = @tagged.save
+    # @tagged = Tagged.new
+    # @tags = Tag.all
+    # @tagged.place_id = @place.id
+    # @tagged.tag_id = params[:tag_id]
+    # save_status = @tagged.save
     #end tagging
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place created successfully.")

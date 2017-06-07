@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   # CREATE
   get "/tags/new", :controller => "tags", :action => "new"
   post "/create_tag", :controller => "tags", :action => "create"
-
+  post "/create_tag_in_place", :controller => "tags", :action => "create_tag_in_place"
   # READ
   get "/tags", :controller => "tags", :action => "index"
   get "/tags/:id", :controller => "tags", :action => "show"
