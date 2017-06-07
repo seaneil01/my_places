@@ -27,18 +27,14 @@ class PlacesController < ApplicationController
     @place.address = parsed_data["results"][0]["formatted_address"]
     @place.neighborhood = parsed_data["results"][0]["address_components"][2]["long_name"]
     @place.user_id = params[:user_id]
-
-#tagging
-    @tags = Tag.all
-    @tagged = Tagged.new
-
-    @tagged.place_id = params[:place_id]
-    @tagged.tag_id = params[:tag_id]
-
-    save_status = @tagged.save
-
     save_status = @place.save
-#end tagging
+    #tagging
+    @tagged = Tagged.new
+    @tags = Tag.all
+    @tagged.place_id = @place.id
+    @tagged.tag_id = params[:tag_id]
+    save_status = @tagged.save
+    #end tagging
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place created successfully.")
     else
@@ -48,7 +44,7 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.find(params[:id])
-
+    @tagged = Tagged.new
     render("places/edit.html.erb")
   end
 
@@ -62,7 +58,13 @@ class PlacesController < ApplicationController
     @place.user_id = params[:user_id]
 
     save_status = @place.save
-
+    #tagging
+    @tagged = Tagged.new
+    @tags = Tag.all
+    @tagged.place_id = @place.id
+    @tagged.tag_id = params[:tag_id]
+    save_status = @tagged.save
+    #end tagging
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place updated successfully.")
     else
