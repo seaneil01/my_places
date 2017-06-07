@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @tagged.errors.any? %>
+  <% @tagged.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Tagged #<%= @tagged.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_tagged/<%= @tagged.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for place_id -->
+      <div class="form-group">
+        <label for="place_id" class="control-label">
+          Place
+        </label>
+
+        <input type="text" id="place_id" name="place_id" placeholder="Place" class="form-control" value="<%= @tagged.place_id %>">
+      </div>
+
+      <!-- Label and input for tag_id -->
+      <div class="form-group">
+        <label for="tag_id" class="control-label">
+          Tag
+        </label>
+
+        <input type="text" id="tag_id" name="tag_id" placeholder="Tag" class="form-control" value="<%= @tagged.tag_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Tagged
+      </button>
+      or
+      <a href="/taggeds/<%= @tagged.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

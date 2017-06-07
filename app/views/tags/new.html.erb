@@ -1,0 +1,38 @@
+<!-- Validation failure messages -->
+<% if @tag.errors.any? %>
+  <% @tag.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Create Tag</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_tag" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @tag.name %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <input name="user_id" type="hidden" value="<%= current_user.id%>">
+
+      <button class="btn btn-success">
+        Create Tag
+      </button>
+      or
+      <a href="/tags">Cancel</a>
+    </form>
+  </div>
+</div>

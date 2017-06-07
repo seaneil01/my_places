@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h3>Tagged #<%= @tagged.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Place</dt>
+      <dd><%= @tagged.place_id %></dd>
+
+      <dt>Tag</dt>
+      <dd><%= @tagged.tag_id %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/taggeds" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/taggeds/<%= @tagged.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_tagged/<%= @tagged.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
