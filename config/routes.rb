@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Routes for the Tagged resource:
- root "places#index"
+  root "places#index"
 
   # CREATE
   get "/taggeds/new", :controller => "taggeds", :action => "new"
@@ -50,6 +50,10 @@ Rails.application.routes.draw do
 
   # DELETE
   get "/delete_tag/:id", :controller => "tags", :action => "destroy"
+
+  #Search by Tag
+  get "/tag_search", :controller => "tags", :action => "search_by_tag"
+  get "/tag_search/:id", :controller => "tags", :action => "search_results"
   #------------------------------
 
   devise_for :users

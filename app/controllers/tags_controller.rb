@@ -4,11 +4,23 @@ class TagsController < ApplicationController
 
     render("tags/index.html.erb")
   end
+  def search_by_tag
+    @tags = Tag.all
+
+    render("tags/search_by_tag.html.erb")
+  end
 
   def show
     @tag = Tag.find(params[:id])
 
     render("tags/show.html.erb")
+  end
+
+  def search_results
+    @tags = Tag.all
+    @tagged = Tagged.where(:tag_id => params[:id])
+
+    render("tags/search_results.html.erb")
   end
 
   def new

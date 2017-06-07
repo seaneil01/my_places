@@ -56,11 +56,11 @@
         </div>
 
         <!-- Label and input for tagged -->
-        <dt>Tags</dt>
+        <!-- <dt>Tags</dt>
         <% @place.taggeds.each do |place| %>
         <dd><%= place.tag.name %></dd>
         <% end %>
-        <%= select_tag(:tag_id, options_from_collection_for_select(Tag.where(:user_id=> current_user.id), :id, :name, @tagged.tag_id), :class => "form-control") %>
+        <%= select_tag(:tag_id, options_from_collection_for_select(Tag.where(:user_id=> current_user.id), :id, :name, @tagged.tag_id), :class => "form-control") %> -->
 
         <!-- Label and input for user_id -->
         <input name="user_id" type="hidden" value="<%= current_user.id%>">
