@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
     @places = @ordered_place.where(:user_id => current_user.id)
     @neighborhoods = @places.distinct.pluck(:neighborhood)
     @n_places = Place.where(:neighborhood=> params[:neighborhood])
-
+    @n_places = @n_places.where(:user_id => current_user.id)
     render("neighborhoods/search_results.html.erb")
   end
 
@@ -36,44 +36,22 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-
-    render("places/testgoogle.html.erb")
-  end
-
-  def create_old
-    @place = Place.new
-    @place.name = params[:name]
-    address = params[:address]
-    @place.comment = params[:comment]
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address="+address.gsub(" ", "%")
-    parsed_data = JSON.parse(open(url).read)
-    @place.address = parsed_data["results"][0]["formatted_address"]
-    @place.neighborhood = parsed_data["results"][0]["address_components"][2]["long_name"]
-    @place.user_id = params[:user_id]
-    save_status = @place.save
-    #tagging
-    # @tagged = Tagged.new
-    # @tags = Tag.all
-    # @tagged.place_id = @place.id
-    # @tagged.tag_id = params[:tag_id]
-    # save_status = @tagged.save
-    #end tagging
-    if save_status == true
-      redirect_to("/places/#{@place.id}", :notice => "Place created successfully.")
-    else
-      render("places/new.html.erb")
-    end
+    render("places/new.html.erb")
   end
 
   def create
     @place = Place.new
     @place.name = params[:name]
-    @place.address = params[:address]
+    address = params[:address]
+    address.gsub(" ", "%")
     @place.comment = params[:comment]
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=chicago"+@place.address.gsub(" ", "%")
+    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+address+"&key=AIzaSyCP83Yxqun0Tgjqj4rhp7M7-i1P4aagazA"
     parsed_data = JSON.parse(open(url).read)
     @place.address = parsed_data["results"][0]["formatted_address"]
-    @place.neighborhood = parsed_data["results"][0]["address_components"][2]["long_name"]
+    @place.name = parsed_data["results"][0]["name"]
+    url2 = "https://maps.googleapis.com/maps/api/geocode/json?address="+address
+    parsed_data2 = JSON.parse(open(url2).read)
+    @place.neighborhood = parsed_data2["results"][0]["address_components"][2]["long_name"]
     @place.user_id = params[:user_id]
     save_status = @place.save
     #tagging
@@ -86,7 +64,7 @@ class PlacesController < ApplicationController
     if save_status == true
       redirect_to("/places/#{@place.id}", :notice => "Place created successfully.")
     else
-      render("places/new.html.erb")
+      redirect_to("/")
     end
   end
 
@@ -133,6 +111,7 @@ class PlacesController < ApplicationController
 
   def test
     @place = Place.new
-    render("places/testgoogle.html.erb")
+    @address = params[:address]
+    render("/places/new.html.erb")
   end
 end

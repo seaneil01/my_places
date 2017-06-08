@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 
   # Routes for the Place resource:
   # CREATE
-  get "/places/new", :controller => "places", :action => "new"
-  
+  post "/places/new", :controller => "places", :action => "new"
+
   post "/create_place", :controller => "places", :action => "create"
 
   # READ
@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   # DELETE
   get "/delete_place/:id", :controller => "places", :action => "destroy"
+
   #------------------------------
 
   # Routes for the Tag resource:
@@ -60,7 +61,7 @@ Rails.application.routes.draw do
   get "/neighborhoods", :controller => "places", :action => "get_neighborhood"
   get "/neighborhoods/:neighborhood", :controller => "places", :action => "search_results"
 
-  get "/test", :controller =>"places", :action => "test"
+  get "/test", :controller => "places", action: "test"
 
   #------------------------------
 
