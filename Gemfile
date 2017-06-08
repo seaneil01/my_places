@@ -11,6 +11,8 @@ gem 'starter_generators', :git => "http://github.com/rbetina/starter_generators.
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
+gem 'sqlite3', :group => :development
+gem 'rails_12factor', :group => :production
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
