@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # CREATE
   get "/places/new", :controller => "places", :action => "new"
   post "/create_place", :controller => "places", :action => "create"
+  post "/create_place_test", :controller => "places", :action => "create_test"
 
   # READ
   get "/places", :controller => "places", :action => "index"
@@ -58,6 +59,8 @@ Rails.application.routes.draw do
   #Search by Neighborhood
   get "/neighborhoods", :controller => "places", :action => "get_neighborhood"
   get "/neighborhoods/:neighborhood", :controller => "places", :action => "search_results"
+
+  get "/test", :controller =>"places", :action => "test"
 
   #------------------------------
 
