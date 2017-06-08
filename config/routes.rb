@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   # Routes for the Place resource:
   # CREATE
   get "/places/new", :controller => "places", :action => "new"
+  
   post "/create_place", :controller => "places", :action => "create"
-  post "/create_place_test", :controller => "places", :action => "create_test"
 
   # READ
   get "/places", :controller => "places", :action => "index"

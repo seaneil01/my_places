@@ -36,17 +36,16 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @tagged = Tagged.new
 
-    render("places/new.html.erb")
+    render("places/testgoogle.html.erb")
   end
 
-  def create
+  def create_old
     @place = Place.new
     @place.name = params[:name]
     address = params[:address]
     @place.comment = params[:comment]
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=chicago"+address.gsub(" ", "%")
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address="+address.gsub(" ", "%")
     parsed_data = JSON.parse(open(url).read)
     @place.address = parsed_data["results"][0]["formatted_address"]
     @place.neighborhood = parsed_data["results"][0]["address_components"][2]["long_name"]
@@ -66,7 +65,7 @@ class PlacesController < ApplicationController
     end
   end
 
-  def create_test
+  def create
     @place = Place.new
     @place.name = params[:name]
     @place.address = params[:address]
