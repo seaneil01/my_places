@@ -1,61 +1,48 @@
 <!-- Validation failure messages -->
 <% if @place.errors.any? %>
-  <% @place.errors.full_messages.each do |message| %>
-  <div class="alert alert-dismissable alert-danger">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <%= message %>
-  </div>
-  <% end %>
-  <% end %>
+<% @place.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
+<% end %>
 
-  <div class="page-header">
-    <h3>Add Place</h3>
-  </div>
+<div class="page-header">
+  <h3>Add Place</h3>
+</div>
+<%= @address %>
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_place" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-  <div class="row">
-    <div class="col-md-12">
-      <form action="/create_place" method="post">
-        <!-- Hidden input for authenticity token to protect from forgery -->
-        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-
-        <!-- Label and input for name -->
-        <div class="form-group">
-          <label for="name" class="control-label">
-            Name
-          </label>
-
-          <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @place.name %>">
-        </div>
-
-
-        <!-- Label and input for comment -->
-        <div class="form-group">
-          <label for="comment" class="control-label">
-            Comment
-          </label>
-
-          <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control" value="<%= @place.comment %>">
-        </div>
-
-        <!-- Label and input for tagged -->
-          <!--         <div class="form-group">
-          <label for="tag_id" class="control-label">
-            Tags
-          </label>
-
-
-
-<%= select_tag(:tag_id,  options_from_collection_for_select(Tag.where(user_id: current_user.id), :id, :name, @tagged.tag_id), :class => "form-control")%> -->
-
-          <!-- Label and input for user_id -->
-          <input name="user_id" type="hidden" value="<%= current_user.id%>">
-
-          <button class="btn btn-success">
-            Create Place
-          </button>
-          or
-          <a href="/places">Cancel</a>
-        </form>
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Nick Name
+        </label>
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @place.name %>">
       </div>
-    </div>
+
+      <!-- Label and input for comment -->
+      <div class="form-group">
+        <label for="comment" class="control-label">
+          Comment
+        </label>
+
+        <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control" value="<%= @place.comment %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <input name="user_id" type="hidden" value="<%= current_user.id%>">
+
+      <button class="btn btn-success">
+        Create Place
+      </button>
+      or
+      <a href="/places">Cancel</a>
+    </form>
+  </div>
+</div>
