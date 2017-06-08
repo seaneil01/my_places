@@ -5,6 +5,22 @@ class PlacesController < ApplicationController
     render("places/index.html.erb")
   end
 
+  def get_neighborhood
+    @ordered_place = Place.order(:neighborhood)
+    @places = @ordered_place.where(:user_id => current_user.id)
+    @neighborhoods = @places.distinct.pluck(:neighborhood)
+    render("neighborhoods/neighborhoods.html.erb")
+  end
+
+  def search_results
+    @ordered_place = Place.order(:neighborhood)
+    @places = @ordered_place.where(:user_id => current_user.id)
+    @neighborhoods = @places.distinct.pluck(:neighborhood)
+    @n_places = Place.where(:neighborhood=> params[:neighborhood])
+
+    render("neighborhoods/search_results.html.erb")
+  end
+
   def show
     @place = Place.find(params[:id])
     @tagged = Tagged.where(:place_id => @place.id)
