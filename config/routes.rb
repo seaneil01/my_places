@@ -54,6 +54,11 @@ Rails.application.routes.draw do
   #Search by Tag
   get "/tag_search", :controller => "tags", :action => "search_by_tag"
   get "/tag_search/:id", :controller => "tags", :action => "search_results"
+
+  #Search by Neighborhood
+  get "/neighborhoods", :controller => "places", :action => "get_neighborhood"
+  get "/neighborhoods/:neighborhood", :controller => "places", :action => "search_results"
+
   #------------------------------
 
   devise_for :users

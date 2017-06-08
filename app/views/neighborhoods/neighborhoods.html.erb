@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h1>
+    Search by Neighborhood
+  </h1>
+
+      <% @neighborhoods.each do |neighborhood| %>
+      <tr>
+        <td><a href="/neighborhoods/<%= neighborhood %>" class="btn btn-success"><%= neighborhood %></a></td>
+      </tr>
+      <% end %>
+</div>
