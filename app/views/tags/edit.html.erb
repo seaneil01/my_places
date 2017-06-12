@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Edit Tag #<%= @tag.id %></h3>
+  <h3>Edit <%= @tag.name %></h3>
 </div>
 
 <div class="row">
@@ -29,12 +29,8 @@
 
       <!-- Label and input for user_id -->
       <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @tag.user_id %>">
-      </div>
+        <!-- Label and input for user_id -->
+        <input name="user_id" type="hidden" value="<%= current_user.id%>">
 
       <button class="btn btn-warning">
         Update Tag
